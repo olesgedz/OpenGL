@@ -147,7 +147,13 @@ void keyboard(unsigned char key,int x,int y) {
 		up = upinit; 
 		amount = amountinit;
 		std::cout << "eye and up vectors reset, amount set to " << amountinit << "\n";
-		break;                 
+		break; 
+	case 'k': //right
+		Transform::rotateZ(amount,eye,up);
+		break;
+	case 'l': //down
+		Transform::rotateZ(-amount,eye,up);
+		break;                
 	}
 	glutPostRedisplay();
 }
@@ -156,6 +162,7 @@ void keyboard(unsigned char key,int x,int y) {
 //  When an arrow key is pressed, it will call your transform functions
 
 void specialKey(int key,int x,int y) {
+	std::cout << key << std::endl;
 	switch(key) {
 	case 100: //left
 		Transform::left(amount,eye,up);
@@ -169,6 +176,12 @@ void specialKey(int key,int x,int y) {
 	case 103: //down
 		Transform::up(-amount,eye,up);
 		break;
+	// case : //right
+	// 	Transform::left(-amount,eye,up);
+	// 	break;
+	// case 103: //down
+	// 	Transform::up(-amount,eye,up);
+	// 	break;
 	}
 	glutPostRedisplay();
 }

@@ -116,12 +116,12 @@ void Transform::left(float degrees, vec3& eye, vec3& up) {
 //    mat3 rotMatxY = glm::transpose(mat3(vec3(cos(radians),0,sin(radians)),
 //                         vec3(0,1,0),
 //                         vec3(-sin(radians),0,cos(radians))));
-    
-   
+    vec4 a = vec4(1,1,1,1) * Transform::lookAt(vec3(0,50,5), vec3(0,1,0));
+	printf("Coordinates: %.2f, %.2f, %.2f\n", a.x, a.y, a.z );
     mat3 rotationMx= rotate(degrees, up);
     eye =rotationMx*eye;
     up = rotationMx*up;
-    printf("Coordinates: %.2f, %.2f, %.2f; distance: %.2f\n", eye.x, eye.y, eye.z, sqrt(pow(eye.x, 2) + pow(eye.y, 2) + pow(eye.z, 2)));
+   // printf("Coordinates: %.2f, %.2f, %.2f; distance: %.2f\n", eye.x, eye.y, eye.z, sqrt(pow(eye.x, 2) + pow(eye.y, 2) + pow(eye.z, 2)));
     
 }
 
@@ -140,6 +140,25 @@ void Transform::up(float degrees, vec3& eye, vec3& up) {
 
 			vec3 pivot = glm::normalize(glm::cross(-up, eye));
 			mat3 rotationMx = rotate(degrees, pivot);
+	eye = eye * rotationMx;
+	up = up * rotationMx;
+    printf("Coordinates: %.2f, %.2f, %.2f; distance: %.2f\n", eye.x, eye.y, eye.z, sqrt(pow(eye.x, 2) + pow(eye.y, 2) + pow(eye.z, 2)));
+}
+
+void Transform::rotateZ(float degrees, vec3& eye, vec3& up) {
+    
+    //float radians = degrees*pi/180;
+//    mat3 rotMatxX = glm::transpose(mat3(vec3(1,0,0),
+//                         vec3(0,cos(radians),-sin(radians)),
+//                         vec3(0,sin(radians),cos(radians))));
+    // vec3 w = glm::cross(up, eye);
+    // mat3 rotationMx= rotate(-degrees, w);
+    
+    // eye =rotationMx*eye;
+    //  up = rotationMx*up;
+
+	//vec3 pivot = glm::normalize(glm::cross(-up, eye));
+	mat3 rotationMx = rotate(degrees, vec3(0,0,1));
 	eye = eye * rotationMx;
 	up = up * rotationMx;
     printf("Coordinates: %.2f, %.2f, %.2f; distance: %.2f\n", eye.x, eye.y, eye.z, sqrt(pow(eye.x, 2) + pow(eye.y, 2) + pow(eye.z, 2)));
